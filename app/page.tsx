@@ -1,4 +1,4 @@
-import { Clock, FileSpreadsheet, Layers } from "lucide-react"
+import { Clock, CalendarCheck2 , FileSpreadsheet, Layers } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import HeroCarousel from "@/components/hero-carousel"
 import Footer from "@/components/footer"
@@ -6,16 +6,16 @@ import Footer from "@/components/footer"
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
-     
+
       <main className="flex-1">
-        <section className="w-full">
+        {/* <section className="w-full">
           <div className="container py-4 md:py-6">
             <h2 className="text-center text-2xl font-medium text-blue-600 md:text-3xl">
               Welcome to Faculty Timetable Manager
             </h2>
           </div>
           <HeroCarousel />
-        </section>
+        </section> */}
         <section className="w-full py-12 md:py-16 lg:py-20">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -30,7 +30,9 @@ export default function HomePage() {
               <Card className="flex flex-col items-center text-center shadow-md transition-all hover:shadow-lg">
                 <CardHeader>
                   <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
-                    <FileSpreadsheet className="h-10 w-10 text-blue-600" />
+                    {/* <FileSpreadsheet className="h-10 w-10 text-blue-600" /> */}
+                    <CalendarCheck2 />
+                    
                   </div>
                   <CardTitle className="mt-4">Import Timetables</CardTitle>
                 </CardHeader>
@@ -70,6 +72,7 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
   )

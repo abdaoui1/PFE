@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 
 const Login = () => {
     const [email, setemail] = useState<string>('');
@@ -39,7 +40,7 @@ const Login = () => {
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
             >
-                <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-center">Connexion</h2>
 
                 {error && (
                     <div className="mb-4 text-red-600 text-sm">{error}</div>
@@ -47,28 +48,28 @@ const Login = () => {
 
                 <div className="mb-4">
                     <label htmlFor="email" className="block mb-1 font-medium">
-                        email
+                        Email
                     </label>
                     <input
                         id="email"
                         type="email"
                         value={email}
                         onChange={(e) => setemail(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                        className="w-full px-3 py-2 text-white border border-gray-300 rounded  focus:ring focus:border-blue-300"
                         placeholder="Enter your email"
                     />
                 </div>
 
                 <div className="mb-6">
                     <label htmlFor="password" className="block mb-1 font-medium">
-                        Password
+                        Mot de Passe
                     </label>
                     <input
                         id="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                        className="w-full px-3 py-2 text-white border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
                         placeholder="Enter your password"
                     />
                 </div>
@@ -77,8 +78,10 @@ const Login = () => {
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
                 >
-                    Sign In
+                    Se Connecter
                 </button>
+                <hr />
+                <GoogleSignInButton />
             </form>
         </div>
     );

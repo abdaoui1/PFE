@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getUser } from "./action";
+import GoogleProvider from "next-auth/providers/google";
 
 
 export interface DefaultUser {
@@ -18,6 +19,10 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
+     GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!
+  }),
     CredentialsProvider({
       name: "Sign in",
       credentials: {
