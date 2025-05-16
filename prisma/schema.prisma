@@ -4,11 +4,6 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-enum Sexe {
-  HOMME
-  FEMME
-}
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,6 +13,160 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Sexe {
+  HOMME
+  FEMME
+}
+
+enum TypeUser {
+  ETUDIANT
+  PROF
+  ADMIN
+}
+
+enum TypeLieu {
+  AMPHI
+  SALLE
+}
+
+enum Bloc {
+  A
+  B
+  C
+  D
+}
+
+enum Semestre {
+  S1
+  S2
+  S3
+  S4
+  S5
+  S6
+  S7
+  S8
+  S9
+  S10
+}
+
+enum TypeSeance {
+  COURS
+  TD
+  TP
+}
+
+model User {
+  email    String    @unique
+  password String
+  typeUser TypeUser  @default(ETUDIANT)
+  // relations belowe
+  etudiant Etudiant?
+  prof     Prof?
+  admin    Admin?
+}
+
+model Etudiant {
+  cne       String  @id
+  nomEtd    String
+  prenomEtd String
+  sexeEtd   Sexe
+  teleEtd   String?
+  image     String? @default("/avatars/default.svg")
+  emailEtd  String  @unique
+  user      User    @relation(fields: [emailEtd], references: [email], onDelete: Cascade, onUpdate: Cascade)
+  classe    Classe  @relation(fields: [idClasse], references: [idClasse])
+  idClasse  Int
+}
+
+model Prof {
+  idProf     Int      @id @default(autoincrement())
+  nomProf    String
+  prenomProf String
+  sexeProf   Sexe
+  teleProf   String
+  image      String?  @default("/avatars/default.svg")
+  emailProf  String   @unique
+  // relations
+  user       User     @relation(fields: [emailProf], references: [email], onDelete: Cascade, onUpdate: Cascade)
+  seances    Seance[]
+}
+
+model Admin {
+  emailAdmin  String  @id
+  nomAdmin    String
+  prenomAdmin String
+  sexeAdmin   Sexe
+  teleAdmin   String
+  image       String? @default("/avatars/default.svg")
+  user        User    @relation(fields: [emailAdmin], references: [email], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Classe {
+  idClasse  Int        @id @default(autoincrement())
+  // groupe String? // why adding this attribut ??
+  effectif  Int?
+  // relations
+  Etudiant  Etudiant[]
+  filiere   Filiere    @relation(fields: [idFiliere], references: [idFiliere])
+  idFiliere Int
+  seances   Seance[]
+}
+
+model Filiere {
+  idFiliere  Int      @id @default(autoincrement())
+  nomFiliere String
+  abrFiliere String
+  semestre   Semestre
+  // relations
+  classes    Classe[]
+}
+
+model Lieu {
+  idLieu   Int      @id @default(autoincrement())
+  nomLieu  String
+  typeLieu TypeLieu @default(SALLE)
+  bloc     Bloc
+  capacite Int?
+  etat     String?
+
+  // relations 
+  seances Seance[]
+}
+
+model Module {
+  idModule    Int     @id @default(autoincrement())
+  nomModule   String
+  departement String?
+  dure        Int
+
+  // relations 
+  seances Seance[]
+}
+
+model Seance {
+  idSeance   Int        @id @default(autoincrement())
+  // numeroSeance enum 
+  typeSeance TypeSeance
+  dateSeance DateTime
+
+  // relations 
+  idModule Int
+  idLieu   Int
+  idClasse Int
+  idProf   Int
+  module   Module @relation(fields: [idModule], references: [idModule])
+  lieu     Lieu   @relation(fields: [idLieu], references: [idLieu])
+  classe   Classe @relation(fields: [idClasse], references: [idClasse])
+  prof     Prof   @relation(fields: [idProf], references: [idProf])
+
+  // Indexing
+  @@index([idModule])
+  @@index([idLieu])
+  @@index([idClasse])
+  @@index([idProf])
+}
+
+//  I found them
 // model User {
 //   userId   Int    @id @default(autoincrement())
 //   email    String @unique
@@ -29,56 +178,56 @@ datasource db {
 //   image    String @default("/avatars/default.svg")
 // }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+// model Account {
+//   id                String  @id @default(cuid())
+//   userId            String  @map("user_id")
+//   type              String
+//   provider          String
+//   providerAccountId String  @map("provider_account_id")
+//   refresh_token     String? @db.Text
+//   access_token      String? @db.Text
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String? @db.Text
+//   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
+//   @@unique([provider, providerAccountId])
+//   @@map("accounts")
+// }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique @map("session_token")
+//   userId       String   @map("user_id")
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("sessions")
-}
+//   @@map("sessions")
+// }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime
-  password      String?
+// model User {
+//   id            String    @id @default(cuid())
+//   name          String?
+//   email         String?   @unique
+//   emailVerified DateTime? @map("email_verified")
+//   image         String?
+//   accounts      Account[]
+//   sessions      Session[]
+//   createdAt     DateTime  @default(now())
+//   updatedAt     DateTime
+//   password      String?
 
-  @@map("users")
-}
+//   @@map("users")
+// }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+// model VerificationToken {
+//   identifier String
+//   token      String
+//   expires    DateTime
 
-  @@unique([identifier, token])
-  @@map("verification_tokens")
-}
+//   @@unique([identifier, token])
+//   @@map("verification_tokens")
+// }

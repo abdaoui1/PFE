@@ -1,0 +1,30 @@
+
+P1 : Problem : Loging the image from google .
+
+DONE🟩 later : review migration ( laravel presentation)
+
+DONE🟩 : later  ( schema.prisma ) : primary key : string or int -> Int
+
+DONE🟩 Search : how to delete a previous migration
+
+DONE🟩 Search : how to prevent deleting the old data , when i want modify the tables
+
+Questio 1n gpt: model Prof {
+  idProf     String @id
+  nomProf    String
+  prenomProf String
+  sexeProf   Sexe
+  teleProf   String
+  emailProf  String @unique
+  user       User   @relation(fields: [emailProf], references: [email])
+}
+can i access or create  user , from the Prof ( prof.create( .... user: {create : { ....}}))
+
+DONE🟩 : Question2 : where i add onDelete , Onupdate ( parent tabble or son ) .then add this constraints
+Answer : to the child ( the one who has the foreign key )
+
+Think 1 : add Groupe or not 
+
+DONE🟩 Question 3 : the relation berween normalization and the not null constraints (aucune relation)
+
+DONE🟩 Question 4 : how to add check constraint ( // numeroSeance enum  ( 1< x < 6)) (impossible)
