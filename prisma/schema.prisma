@@ -55,6 +55,47 @@ enum TypeSeance {
   TP
 }
 
+enum Section {
+  A
+  B
+  C
+  D
+  E
+  F
+  G
+  H
+}
+
+enum Groupe {
+  G1
+  G2
+  G3
+  G4
+  G5
+  G6
+  G7
+  G8
+}
+
+enum NumeroSeance {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  FIFTH
+  SIXTH
+}
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNEDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
 model User {
   email    String    @unique
   password String
@@ -103,7 +144,9 @@ model Admin {
 
 model Classe {
   idClasse  Int        @id @default(autoincrement())
-  // groupe String? // why adding this attribut ??
+  semestre  Semestre // each filiere has many classes switch the semestre s1 ,s2 ,s3...
+  section   Section? //  each semestre has many classes switch the section A ,B ,C ... (null => without sections)
+  groupe    Groupe? //  each section has many classes switch the groupe G1 ,G2 ,G3... (null => without groupes)
   effectif  Int?
   // relations
   Etudiant  Etudiant[]
@@ -116,7 +159,6 @@ model Filiere {
   idFiliere  Int      @id @default(autoincrement())
   nomFiliere String
   abrFiliere String
-  semestre   Semestre
   // relations
   classes    Classe[]
 }
@@ -144,20 +186,21 @@ model Module {
 }
 
 model Seance {
-  idSeance   Int        @id @default(autoincrement())
-  // numeroSeance enum 
-  typeSeance TypeSeance
-  dateSeance DateTime
-
+  idSeance     Int          @id @default(autoincrement())
+  numeroSeance NumeroSeance
+  typeSeance   TypeSeance?
+  day          Day // For the official schedule, we want to know which day of the week it is
+  // Later, I can add other attributes, such as whether the session is official or not.
+  // If the session is not official, how can we determine its exact date?
   // relations 
-  idModule Int
-  idLieu   Int
-  idClasse Int
-  idProf   Int
-  module   Module @relation(fields: [idModule], references: [idModule])
-  lieu     Lieu   @relation(fields: [idLieu], references: [idLieu])
-  classe   Classe @relation(fields: [idClasse], references: [idClasse])
-  prof     Prof   @relation(fields: [idProf], references: [idProf])
+  idModule     Int
+  idLieu       Int
+  idClasse     Int
+  idProf       Int
+  module       Module       @relation(fields: [idModule], references: [idModule])
+  lieu         Lieu         @relation(fields: [idLieu], references: [idLieu])
+  classe       Classe       @relation(fields: [idClasse], references: [idClasse])
+  prof         Prof         @relation(fields: [idProf], references: [idProf])
 
   // Indexing
   @@index([idModule])

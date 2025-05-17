@@ -9,7 +9,7 @@ DONE🟩 Search : how to delete a previous migration
 
 DONE🟩 Search : how to prevent deleting the old data , when i want modify the tables
 
-Questio 1n gpt: model Prof {
+Question 1n gpt: model Prof {
   idProf     String @id
   nomProf    String
   prenomProf String
@@ -20,7 +20,7 @@ Questio 1n gpt: model Prof {
 }
 can i access or create  user , from the Prof ( prof.create( .... user: {create : { ....}}))
 
-DONE🟩 : Question2 : where i add onDelete , Onupdate ( parent tabble or son ) .then add this constraints
+DONE🟩 : Question 2 : where i add onDelete , Onupdate ( parent tabble or son ) .then add this constraints
 Answer : to the child ( the one who has the foreign key )
 
 DONE🟩 Think 1 : add Groupe or not 
@@ -31,6 +31,9 @@ DONE🟩 Question 4 : how to add check constraint ( // numeroSeance enum  ( 1< x
 
 
 is the error.getmessage() enough , or i add other message personnels
+
+--------------------- 17/05/25 saturday ----------------------------------
+Question 1 : adding createdAt @default( now()) to user
 
 
 
