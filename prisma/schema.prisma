@@ -150,7 +150,7 @@ model Classe {
   effectif  Int?
   // relations
   Etudiant  Etudiant[]
-  filiere   Filiere    @relation(fields: [idFiliere], references: [idFiliere])
+  filiere   Filiere    @relation(fields: [idFiliere], references: [idFiliere], onDelete: Cascade, onUpdate: Cascade)
   idFiliere Int
   seances   Seance[]
 }
@@ -164,12 +164,13 @@ model Filiere {
 }
 
 model Lieu {
-  idLieu   Int      @id @default(autoincrement())
-  nomLieu  String
-  typeLieu TypeLieu @default(SALLE)
-  bloc     Bloc
-  capacite Int?
-  etat     String?
+  idLieu      Int       @id @default(autoincrement())
+  nomLieu     String? // ✅ Only for AMPHI (can be null for SALLE)
+  typeLieu    TypeLieu? @default(SALLE)
+  numeroSalle Int?      @unique // ✅ Only for Salle (can be null for AMPHI)
+  bloc        Bloc? // ✅ Only for SALLE (can be null for Amphi)
+  capacite    Int?
+  etat        String?
 
   // relations 
   seances Seance[]
@@ -178,6 +179,7 @@ model Lieu {
 model Module {
   idModule    Int     @id @default(autoincrement())
   nomModule   String
+  abrModule   String
   departement String?
   dure        Int
 
