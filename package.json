@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx prisma/seed.ts",
+    "seed:watch": "nodemon"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -63,13 +65,16 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@types/node": "^22.15.18",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "daisyui": "^5.0.35",
+    "nodemon": "^3.1.10",
     "postcss": "^8",
     "prisma": "^6.7.0",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

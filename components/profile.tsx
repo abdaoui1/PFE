@@ -26,7 +26,8 @@ export default async function Profile() {
                 <div className="w-12 h-12 rounded-full overflow-hidden">
                     <Image
                         src={session?.user?.image || "/avatars/placeholder.svg"}
-                        alt="User Avatar"
+                        // src="/avatars/placeholder.svg"
+                        alt="logo"
                         width={48}
                         height={48}
                         className="rounded-full object-cover"

@@ -23,8 +23,30 @@ can i access or create  user , from the Prof ( prof.create( .... user: {create :
 DONE🟩 : Question2 : where i add onDelete , Onupdate ( parent tabble or son ) .then add this constraints
 Answer : to the child ( the one who has the foreign key )
 
-Think 1 : add Groupe or not 
+DONE🟩 Think 1 : add Groupe or not 
 
 DONE🟩 Question 3 : the relation berween normalization and the not null constraints (aucune relation)
 
 DONE🟩 Question 4 : how to add check constraint ( // numeroSeance enum  ( 1< x < 6)) (impossible)
+
+
+is the error.getmessage() enough , or i add other message personnels
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

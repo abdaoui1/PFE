@@ -1,0 +1,7 @@
+{
+    "watch": [
+        "prisma/seed.ts"
+    ],
+    "ext": "ts",
+    "exec": "npx tsx prisma/seed.ts"
+}
