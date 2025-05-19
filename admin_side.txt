@@ -1,0 +1,8 @@
+
+the admin can do CRUD operations for the Prof , Etudiant , Module , Lieu , Filiere , Classe , Seacne , Emplois temps 
+
+: i choose to create a dashbord like the phpMyAdmin dashbord , the entites in the left sidebar , 
+and the opertions : create , update , delete , read , export  , import , ... in the navbar , 
+
+and the heiht navbar : containts : Profile of the admin , notifications , and description of the current location like phpMyAdmin
+ ...

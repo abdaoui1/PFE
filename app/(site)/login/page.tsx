@@ -80,7 +80,7 @@ const Login = () => {
                 >
                     Se Connecter
                 </button>
-                <hr />
+                <hr /><br />
                 <GoogleSignInButton />
             </form>
         </div>

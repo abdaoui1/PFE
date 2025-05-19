@@ -35,6 +35,15 @@ is the error.getmessage() enough , or i add other message personnels
 --------------------- 17/05/25 saturday ----------------------------------
 Question 1 : adding createdAt @default( now()) to user
 
+---------------------- 18/05/25 sunday -------------------------------
+Question 1 : can  i repeat the name like that (admin)/admin ?
+
+Question 2 : is the api/auth/[...nextauth] necessaire ?
+
+Question 3 : which is better Daisyui or radix ui ?
+
+Question 4 : diffrence between drawer and sidebar ?
+
 
 
 
