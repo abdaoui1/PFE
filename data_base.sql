@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : lun. 19 mai 2025 à 03:11
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mer. 21 mai 2025 à 23:37
+-- Version du serveur : 9.1.0
+-- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `shedule_time`
+-- Base de données : `faculte_time`
 --
 
 -- --------------------------------------------------------
@@ -27,13 +27,15 @@ SET time_zone = "+00:00";
 -- Structure de la table `admin`
 --
 
-CREATE TABLE `admin` (
-  `emailAdmin` varchar(191) NOT NULL,
-  `nomAdmin` varchar(191) NOT NULL,
-  `prenomAdmin` varchar(191) NOT NULL,
-  `sexeAdmin` enum('HOMME','FEMME') NOT NULL,
-  `teleAdmin` varchar(191) NOT NULL,
-  `image` varchar(191) DEFAULT '/avatars/default.svg'
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `emailAdmin` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomAdmin` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenomAdmin` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sexeAdmin` enum('HOMME','FEMME') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `teleAdmin` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '/avatars/default.svg',
+  PRIMARY KEY (`emailAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -49,14 +51,17 @@ INSERT INTO `admin` (`emailAdmin`, `nomAdmin`, `prenomAdmin`, `sexeAdmin`, `tele
 -- Structure de la table `classe`
 --
 
-CREATE TABLE `classe` (
-  `idClasse` int(11) NOT NULL,
-  `effectif` int(11) DEFAULT NULL,
-  `idFiliere` int(11) NOT NULL,
-  `groupe` enum('G1','G2','G3','G4','G5','G6','G7','G8') DEFAULT NULL,
-  `section` enum('A','B','C','D','E','F','G','H') DEFAULT NULL,
-  `semestre` enum('S1','S2','S3','S4','S5','S6','S7','S8','S9','S10') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `classe`;
+CREATE TABLE IF NOT EXISTS `classe` (
+  `idClasse` int NOT NULL AUTO_INCREMENT,
+  `effectif` int DEFAULT NULL,
+  `idFiliere` int NOT NULL,
+  `groupe` enum('G1','G2','G3','G4','G5','G6','G7','G8') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `section` enum('A','B','C','D','E','F','G','H') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `semestre` enum('S1','S2','S3','S4','S5','S6','S7','S8','S9','S10') COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idClasse`),
+  KEY `Classe_idFiliere_fkey` (`idFiliere`)
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `classe`
@@ -167,15 +172,19 @@ INSERT INTO `classe` (`idClasse`, `effectif`, `idFiliere`, `groupe`, `section`, 
 -- Structure de la table `etudiant`
 --
 
-CREATE TABLE `etudiant` (
-  `cne` varchar(191) NOT NULL,
-  `nomEtd` varchar(191) NOT NULL,
-  `prenomEtd` varchar(191) NOT NULL,
-  `sexeEtd` enum('HOMME','FEMME') NOT NULL,
-  `teleEtd` varchar(191) DEFAULT NULL,
-  `image` varchar(191) DEFAULT '/avatars/default.svg',
-  `emailEtd` varchar(191) NOT NULL,
-  `idClasse` int(11) NOT NULL
+DROP TABLE IF EXISTS `etudiant`;
+CREATE TABLE IF NOT EXISTS `etudiant` (
+  `cne` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomEtd` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenomEtd` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sexeEtd` enum('HOMME','FEMME') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `teleEtd` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '/avatars/default.svg',
+  `emailEtd` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idClasse` int NOT NULL,
+  PRIMARY KEY (`cne`),
+  UNIQUE KEY `Etudiant_emailEtd_key` (`emailEtd`),
+  KEY `Etudiant_idClasse_fkey` (`idClasse`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -210,11 +219,13 @@ INSERT INTO `etudiant` (`cne`, `nomEtd`, `prenomEtd`, `sexeEtd`, `teleEtd`, `ima
 -- Structure de la table `filiere`
 --
 
-CREATE TABLE `filiere` (
-  `idFiliere` int(11) NOT NULL,
-  `nomFiliere` varchar(191) NOT NULL,
-  `abrFiliere` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `filiere`;
+CREATE TABLE IF NOT EXISTS `filiere` (
+  `idFiliere` int NOT NULL AUTO_INCREMENT,
+  `nomFiliere` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abrFiliere` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idFiliere`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `filiere`
@@ -235,15 +246,18 @@ INSERT INTO `filiere` (`idFiliere`, `nomFiliere`, `abrFiliere`) VALUES
 -- Structure de la table `lieu`
 --
 
-CREATE TABLE `lieu` (
-  `idLieu` int(11) NOT NULL,
-  `nomLieu` varchar(191) DEFAULT NULL,
-  `typeLieu` enum('AMPHI','SALLE') DEFAULT 'SALLE',
-  `bloc` enum('A','B','C','D') DEFAULT NULL,
-  `capacite` int(11) DEFAULT NULL,
-  `etat` varchar(191) DEFAULT NULL,
-  `numeroSalle` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `lieu`;
+CREATE TABLE IF NOT EXISTS `lieu` (
+  `idLieu` int NOT NULL AUTO_INCREMENT,
+  `nomLieu` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `typeLieu` enum('AMPHI','SALLE') COLLATE utf8mb4_unicode_ci DEFAULT 'SALLE',
+  `bloc` enum('A','B','C','D') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `capacite` int DEFAULT NULL,
+  `etat` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `numeroSalle` int DEFAULT NULL,
+  PRIMARY KEY (`idLieu`),
+  UNIQUE KEY `Lieu_numeroSalle_key` (`numeroSalle`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `lieu`
@@ -327,13 +341,15 @@ INSERT INTO `lieu` (`idLieu`, `nomLieu`, `typeLieu`, `bloc`, `capacite`, `etat`,
 -- Structure de la table `module`
 --
 
-CREATE TABLE `module` (
-  `idModule` int(11) NOT NULL,
-  `nomModule` varchar(191) NOT NULL,
-  `departement` varchar(191) DEFAULT NULL,
-  `dure` int(11) NOT NULL,
-  `abrModule` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `module`;
+CREATE TABLE IF NOT EXISTS `module` (
+  `idModule` int NOT NULL AUTO_INCREMENT,
+  `nomModule` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departement` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dure` int NOT NULL,
+  `abrModule` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idModule`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `module`
@@ -345,25 +361,27 @@ INSERT INTO `module` (`idModule`, `nomModule`, `departement`, `dure`, `abrModule
 (3, 'ModC', 'Departement d\'Informatique', 50, 'ModC'),
 (4, 'ModD', 'Departement d\'Informatique', 50, 'ModD'),
 (5, 'ModE', 'Departement d\'Informatique', 50, 'ModE'),
-(6, 'ModF', 'Departement d\'Informatique', 50, 'ModF'),
+(6, 'Programmation C', 'Departement d\'Informatique', 50, 'prog C'),
 (7, 'ModG', 'Departement d\'Biologie', 57, 'ModG'),
-(8, 'ModH', 'Departement d\'Biologie', 57, 'ModH'),
+(8, 'Enzymologie', 'Departement d\'Biologie', 55, 'Enz'),
 (9, 'ModK', 'Departement d\'Biologie', 57, 'ModK'),
-(10, 'ModL', 'Departement d\'Biologie', 57, 'ModL'),
-(11, 'ModM', 'Departement de Math', 48, 'ModM'),
+(10, 'biologie moléculaire ', 'Departement d\'Biologie', 60, 'BMC'),
+(11, 'Algebre 1', 'Departement de Math', 48, 'Alg 1'),
 (12, 'ModN', 'Departement de Math', 48, 'ModN'),
 (13, 'ModO', 'Departement de Math', 48, 'ModO'),
-(14, 'ModP', 'Departement de Math', 48, 'ModP'),
+(14, 'Analyse 1', 'Departement de Math', 48, 'anal1'),
 (15, 'ModQ', 'Departement de Math', 48, 'ModQ'),
 (16, 'ModR', 'Departement de Math', 48, 'ModR'),
 (17, 'ModS', 'Departement de Physique', 38, 'ModS'),
 (18, 'ModT', 'Departement de Physique', 38, 'ModT'),
-(19, 'ModV', 'Departement de Physique', 38, 'ModV'),
+(19, 'Cenitique', 'Departement de Physique', 38, 'Cen'),
 (20, 'ModY', 'Departement de Physique', 38, 'ModY'),
 (22, 'J2EE', 'Informatique', 40, 'J2EE'),
 (23, 'Programmation JAVA', 'Informatique', 40, 'Prog JAVA'),
 (25, 'Administration des bases de donnees', 'Informatique', 47, 'Admin BD'),
-(26, 'Prog Web', 'Informatique', 47, 'Prog Web');
+(26, 'Prog Web', 'Informatique', 47, 'Prog Web'),
+(27, 'test', 'test', 50, 'test'),
+(28, 'test2', 'haha', 0, 'hdh');
 
 -- --------------------------------------------------------
 
@@ -371,15 +389,18 @@ INSERT INTO `module` (`idModule`, `nomModule`, `departement`, `dure`, `abrModule
 -- Structure de la table `prof`
 --
 
-CREATE TABLE `prof` (
-  `idProf` int(11) NOT NULL,
-  `nomProf` varchar(191) NOT NULL,
-  `prenomProf` varchar(191) NOT NULL,
-  `sexeProf` enum('HOMME','FEMME') NOT NULL,
-  `teleProf` varchar(191) NOT NULL,
-  `image` varchar(191) DEFAULT '/avatars/default.svg',
-  `emailProf` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `prof`;
+CREATE TABLE IF NOT EXISTS `prof` (
+  `idProf` int NOT NULL AUTO_INCREMENT,
+  `nomProf` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenomProf` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sexeProf` enum('HOMME','FEMME') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `teleProf` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '/avatars/default.svg',
+  `emailProf` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idProf`),
+  UNIQUE KEY `Prof_emailProf_key` (`emailProf`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `prof`
@@ -413,16 +434,22 @@ INSERT INTO `prof` (`idProf`, `nomProf`, `prenomProf`, `sexeProf`, `teleProf`, `
 -- Structure de la table `seance`
 --
 
-CREATE TABLE `seance` (
-  `idSeance` int(11) NOT NULL,
-  `typeSeance` enum('COURS','TD','TP') DEFAULT NULL,
-  `idModule` int(11) NOT NULL,
-  `idLieu` int(11) NOT NULL,
-  `idClasse` int(11) NOT NULL,
-  `idProf` int(11) NOT NULL,
-  `day` enum('MONDAY','TUESDAY','WEDNEDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY') NOT NULL,
-  `numeroSeance` enum('FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `seance`;
+CREATE TABLE IF NOT EXISTS `seance` (
+  `idSeance` int NOT NULL AUTO_INCREMENT,
+  `typeSeance` enum('COURS','TD','TP') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `idModule` int NOT NULL,
+  `idLieu` int NOT NULL,
+  `idClasse` int NOT NULL,
+  `idProf` int NOT NULL,
+  `day` enum('MONDAY','TUESDAY','WEDNEDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `numeroSeance` enum('FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH') COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idSeance`),
+  KEY `Seance_idModule_idx` (`idModule`),
+  KEY `Seance_idLieu_idx` (`idLieu`),
+  KEY `Seance_idClasse_idx` (`idClasse`),
+  KEY `Seance_idProf_idx` (`idProf`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `seance`
@@ -442,10 +469,12 @@ INSERT INTO `seance` (`idSeance`, `typeSeance`, `idModule`, `idLieu`, `idClasse`
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
-  `email` varchar(191) NOT NULL,
-  `password` varchar(191) NOT NULL,
-  `typeUser` enum('ETUDIANT','PROF','ADMIN') NOT NULL DEFAULT 'ETUDIANT'
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `typeUser` enum('ETUDIANT','PROF','ADMIN') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ETUDIANT',
+  UNIQUE KEY `User_email_key` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -502,15 +531,17 @@ INSERT INTO `user` (`email`, `password`, `typeUser`) VALUES
 -- Structure de la table `_prisma_migrations`
 --
 
-CREATE TABLE `_prisma_migrations` (
-  `id` varchar(36) NOT NULL,
-  `checksum` varchar(64) NOT NULL,
+DROP TABLE IF EXISTS `_prisma_migrations`;
+CREATE TABLE IF NOT EXISTS `_prisma_migrations` (
+  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `checksum` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `finished_at` datetime(3) DEFAULT NULL,
-  `migration_name` varchar(255) NOT NULL,
-  `logs` text DEFAULT NULL,
+  `migration_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logs` text COLLATE utf8mb4_unicode_ci,
   `rolled_back_at` datetime(3) DEFAULT NULL,
-  `started_at` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `applied_steps_count` int(10) UNSIGNED NOT NULL DEFAULT 0
+  `started_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `applied_steps_count` int UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -532,119 +563,6 @@ INSERT INTO `_prisma_migrations` (`id`, `checksum`, `finished_at`, `migration_na
 ('dc5ff46e-267b-423d-8e2c-798d4a9acc9a', '62cceacd80754878dbe5c84d0acc3d1c0f43317da8dd1210c70ae667e6aed3ad', '2025-05-19 00:49:59.021', '20250516185956_adding_my_database', NULL, NULL, '2025-05-19 00:49:58.047', 1),
 ('ea748949-cd4e-47b8-a54f-941af0fa8e93', 'aecc7a143d20d5a1e4a47cb085cee2b1a48326e6787ba915516757001a684d36', '2025-05-19 00:49:59.244', '20250517143320_adding', NULL, NULL, '2025-05-19 00:49:59.143', 1),
 ('ece2f3dc-5ec0-4497-a277-3d305e30c7c4', '0607ca277f8eb82dec72cf8aa7c0de3913b6e35647970321ec3954dde4ab8d03', '2025-05-17 19:28:10.516', '20250517192809_adding', NULL, NULL, '2025-05-17 19:28:10.496', 1);
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`emailAdmin`);
-
---
--- Index pour la table `classe`
---
-ALTER TABLE `classe`
-  ADD PRIMARY KEY (`idClasse`),
-  ADD KEY `Classe_idFiliere_fkey` (`idFiliere`);
-
---
--- Index pour la table `etudiant`
---
-ALTER TABLE `etudiant`
-  ADD PRIMARY KEY (`cne`),
-  ADD UNIQUE KEY `Etudiant_emailEtd_key` (`emailEtd`),
-  ADD KEY `Etudiant_idClasse_fkey` (`idClasse`);
-
---
--- Index pour la table `filiere`
---
-ALTER TABLE `filiere`
-  ADD PRIMARY KEY (`idFiliere`);
-
---
--- Index pour la table `lieu`
---
-ALTER TABLE `lieu`
-  ADD PRIMARY KEY (`idLieu`),
-  ADD UNIQUE KEY `Lieu_numeroSalle_key` (`numeroSalle`);
-
---
--- Index pour la table `module`
---
-ALTER TABLE `module`
-  ADD PRIMARY KEY (`idModule`);
-
---
--- Index pour la table `prof`
---
-ALTER TABLE `prof`
-  ADD PRIMARY KEY (`idProf`),
-  ADD UNIQUE KEY `Prof_emailProf_key` (`emailProf`);
-
---
--- Index pour la table `seance`
---
-ALTER TABLE `seance`
-  ADD PRIMARY KEY (`idSeance`),
-  ADD KEY `Seance_idModule_idx` (`idModule`),
-  ADD KEY `Seance_idLieu_idx` (`idLieu`),
-  ADD KEY `Seance_idClasse_idx` (`idClasse`),
-  ADD KEY `Seance_idProf_idx` (`idProf`);
-
---
--- Index pour la table `user`
---
-ALTER TABLE `user`
-  ADD UNIQUE KEY `User_email_key` (`email`);
-
---
--- Index pour la table `_prisma_migrations`
---
-ALTER TABLE `_prisma_migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `classe`
---
-ALTER TABLE `classe`
-  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
-
---
--- AUTO_INCREMENT pour la table `filiere`
---
-ALTER TABLE `filiere`
-  MODIFY `idFiliere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
-
---
--- AUTO_INCREMENT pour la table `lieu`
---
-ALTER TABLE `lieu`
-  MODIFY `idLieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
-
---
--- AUTO_INCREMENT pour la table `module`
---
-ALTER TABLE `module`
-  MODIFY `idModule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT pour la table `prof`
---
-ALTER TABLE `prof`
-  MODIFY `idProf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT pour la table `seance`
---
-ALTER TABLE `seance`
-  MODIFY `idSeance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées

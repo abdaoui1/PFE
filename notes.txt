@@ -45,8 +45,25 @@ Question 3 : which is better Daisyui or radix ui ?
 Question 4 : diffrence between drawer and sidebar ?
 
 
+---------------------- 21/05/25 wednesday -------------------------------
+
+Question 1 : parseInt( e.target.value) and (number) e.target.value are they equivalent ?
 
 
+tache 1 : Add a verification here  ( if module not found)
+ export default  async function getModule( {params} : {params : { id: string }}) {
+
+    const id = parseInt( params?.id);
+    const prisma = new PrismaClient();
+    const module = await prisma.module.findUnique({
+        where: { idModule: id}
+    })
+
+Question 2 : diffrence between : import { useRouter } from 'next/router'; and 'next/navigation'
+
+Feature 1 : add a possibility of rollback
+
+Feature 2 : add a desabled button when click first time
 
 
 
