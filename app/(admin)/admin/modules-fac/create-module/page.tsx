@@ -4,6 +4,7 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { getBaseUrl } from '@/lib/utils';
 
 export default function CreateModule() {
   const [nom, setNom] = useState('');
@@ -14,9 +15,9 @@ export default function CreateModule() {
   
 
   const addModule = async (e: React.FormEvent) => {
-    // e.preventDefault();
-    await fetch('/api/module-fac/create-module', {
-      method: 'PUT',
+    e.preventDefault();
+    await fetch(`${getBaseUrl()}/api/module-fac`, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         

@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { getBaseUrl } from '@/lib/utils';
 
 type Module = {
   idModule: number;
@@ -23,7 +24,9 @@ export default function UpdateModuleForm({ module }: { module: Module | null }) 
 
   const updateModule = async (e: React.FormEvent) => {
     // e.preventDefault();
-    await fetch('/api/module-fac/update-module', {
+    console.log('🟩');
+    console.log(getBaseUrl());
+    await fetch(`${getBaseUrl()}/api/module-fac`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

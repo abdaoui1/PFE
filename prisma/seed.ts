@@ -1,25 +1,11 @@
+
 // haha i have problem with the ts extension.
 
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient();
 
-        console.log("There is two methods when using async functions ");
 
-        console.log('First : using async function : ');
-
-        const getProf = async (id: number) => {
-            return ( await prisma.prof.findUnique({
-                where: { idProf: id}
-            }))
-        }
-        async function firstMethod(id : number) {
-            const prof = await getProf(id);
-            console.log(prof);
-            
-            prisma.$disconnect();
-        }
-        firstMethod(10);
+     
 
 
 // const modules = async function getModules() {
