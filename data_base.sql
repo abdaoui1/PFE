@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 21 mai 2025 à 23:37
+-- Généré le : ven. 23 mai 2025 à 00:43
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `filiere` (
   `nomFiliere` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `abrFiliere` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`idFiliere`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `filiere`
@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `lieu` (
   `numeroSalle` int DEFAULT NULL,
   PRIMARY KEY (`idLieu`),
   UNIQUE KEY `Lieu_numeroSalle_key` (`numeroSalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `lieu`
@@ -333,7 +333,10 @@ INSERT INTO `lieu` (`idLieu`, `nomLieu`, `typeLieu`, `bloc`, `capacite`, `etat`,
 (67, 'Haitam', 'AMPHI', NULL, 160, 'tres bonne etat', NULL),
 (68, 'Bayrouni', 'AMPHI', NULL, 160, 'tres bonne etat', NULL),
 (69, 'Nouvel', 'AMPHI', NULL, 160, 'tres bonne etat', NULL),
-(70, 'Ibn Youness', 'AMPHI', NULL, 120, 'parfait', NULL);
+(70, 'Ibn Youness', 'AMPHI', NULL, 120, 'parfait', NULL),
+(76, 'fOR tests', 'AMPHI', NULL, 50, '', NULL),
+(77, '', 'SALLE', NULL, 50, '', NULL),
+(79, '', 'AMPHI', NULL, 50, 'Hoh ', NULL);
 
 -- --------------------------------------------------------
 
@@ -349,39 +352,35 @@ CREATE TABLE IF NOT EXISTS `module` (
   `dure` int NOT NULL,
   `abrModule` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`idModule`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `module`
 --
 
 INSERT INTO `module` (`idModule`, `nomModule`, `departement`, `dure`, `abrModule`) VALUES
-(1, 'ModA', 'Departement d\'Informatique', 50, 'ModA'),
-(2, 'ModB', 'Departement d\'Informatique', 50, 'ModB'),
+(1, 'Systeme d\'Exploitation', 'Departement d\'Informatique', 50, 'Sys Ex'),
+(2, 'Python', 'Departement d\'Informatique', 44, 'Pyt'),
 (3, 'ModC', 'Departement d\'Informatique', 50, 'ModC'),
 (4, 'ModD', 'Departement d\'Informatique', 50, 'ModD'),
 (5, 'ModE', 'Departement d\'Informatique', 50, 'ModE'),
 (6, 'Programmation C', 'Departement d\'Informatique', 50, 'prog C'),
-(7, 'ModG', 'Departement d\'Biologie', 57, 'ModG'),
+(7, 'Vegetable', 'Departement d\'Biologie', 57, 'Veg'),
 (8, 'Enzymologie', 'Departement d\'Biologie', 55, 'Enz'),
 (9, 'ModK', 'Departement d\'Biologie', 57, 'ModK'),
 (10, 'biologie moléculaire ', 'Departement d\'Biologie', 60, 'BMC'),
 (11, 'Algebre 1', 'Departement de Math', 48, 'Alg 1'),
-(12, 'ModN', 'Departement de Math', 48, 'ModN'),
 (13, 'ModO', 'Departement de Math', 48, 'ModO'),
 (14, 'Analyse 1', 'Departement de Math', 48, 'anal1'),
-(15, 'ModQ', 'Departement de Math', 48, 'ModQ'),
-(16, 'ModR', 'Departement de Math', 48, 'ModR'),
-(17, 'ModS', 'Departement de Physique', 38, 'ModS'),
-(18, 'ModT', 'Departement de Physique', 38, 'ModT'),
 (19, 'Cenitique', 'Departement de Physique', 38, 'Cen'),
 (20, 'ModY', 'Departement de Physique', 38, 'ModY'),
 (22, 'J2EE', 'Informatique', 40, 'J2EE'),
 (23, 'Programmation JAVA', 'Informatique', 40, 'Prog JAVA'),
 (25, 'Administration des bases de donnees', 'Informatique', 47, 'Admin BD'),
 (26, 'Prog Web', 'Informatique', 47, 'Prog Web'),
-(27, 'test', 'test', 50, 'test'),
-(28, 'test2', 'haha', 0, 'hdh');
+(29, 'Termodynamique', 'Departement de Physique', 40, 'TermoD'),
+(30, 'Algebre 1 ', 'Mathmatique', 60, 'Alg 1'),
+(33, 'JAVA Avance', 'Informatique', 40, 'Prog JAVA');
 
 -- --------------------------------------------------------
 

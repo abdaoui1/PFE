@@ -2,37 +2,43 @@
 
 import Link from "next/link";
 import { getBaseUrl } from "@/lib/utils";
-import { ApiResponse , Module} from "@/lib/types";
+import { ApiResponse, Filiere , Module, Lieu , TypeEntity} from "@/lib/types";
 
 import { useRouter } from "next/navigation";
 
 
-export function DeleteLink(props:  { content: string , idModule: number}) {
+export function DeleteLink(props: { content: string, id: number , typeEntity: TypeEntity }) {
     const router = useRouter();
 
-    async function handleDelete(e: React.MouseEvent, idModule: number) {
+    async function handleDelete(e: React.MouseEvent, id: number , typeEntity: TypeEntity ) {
         e.preventDefault();
-        const res = await fetch(`${getBaseUrl()}/api/module-fac`, {
+
+        const pathApi = `${getBaseUrl()}/api/`+((typeEntity!=='module')?typeEntity: 'module-fac') ;
+        // because i want name it , module , probably it is a reserved name .
+        
+        const res = await fetch( `${getBaseUrl()}/api/delete`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                idModule
+                id ,
+                typeEntity
             })
         });
-        
-        const body: ApiResponse<Module> = await res.json();
+
+        const body : ApiResponse<Module | Filiere| Lieu > = await res.json();
+
         if (body.success && body.data) {
-            alert(`🟩 module deleted successfuly : id :${body.data.idModule}
-                \n name: ${body.data.nomModule}`);
-                router.refresh();
+            alert(`🟩 ${typeEntity} deleted successfuly `);
+            router.refresh();
         } else {
             alert(`Error: ${body?.error}  \n${body.message} `)
         }
     }
 
     return (
-        <Link
-            href={`#`}
-            onClick={(e) => handleDelete(e, props.idModule)}>{props.content}</Link>
+        <button
+            
+            onClick={(e) => handleDelete(e, props.id , props.typeEntity)}>{props.content}
+        </button>
     )
 }

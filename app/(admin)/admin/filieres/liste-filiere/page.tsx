@@ -1,25 +1,25 @@
 
 
 import Link from "next/link";
-import { ApiResponse, Module } from "@/lib/types";
+import { ApiResponse, Filiere } from "@/lib/types";
 import { getBaseUrl } from "@/lib/utils";
 import { DeleteLink } from "@/components/deleteLink"
 
 
 
-export default async function ModulesListe() {
+export default async function FilieresListe() {
 
-    // for fetching modules : 
-    const res = await fetch(`${getBaseUrl()}/api/module-fac`, {
+    // for fetching filieres : 
+    const res = await fetch(`${getBaseUrl()}/api/filiere`, {
         method: "GET",
     })
-    const body: ApiResponse<Module[]> = await res.json();
-    let modules: Module[];
+    const body: ApiResponse<Filiere[]> = await res.json();
+    let filieres: Filiere[];
 
     if (body.success && body.data) {
-        modules = body.data;
+        filieres = body.data;
     } else {
-        alert("Error , getting the modules !");
+        alert("Error , getting the filieres !");
         return (
             <h1>error</h1>
         )
@@ -38,17 +38,15 @@ export default async function ModulesListe() {
                         <th>ID</th>
                         <th>Nom </th>
                         <th>Abreviation</th>
-                        <th>Departement</th>
-                        <th>Dure</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {modules.map((module: Module) => (
-                        <tr key={module.idModule}>
+                    {filieres.map((filiere: Filiere) => (
+                        <tr key={filiere.idFiliere}>
                             <td><input type="checkbox" name="select" id="select" /></td>
                             <td>
                                 <Link
-                                    href={`/admin/modules-fac/update-module/${module.idModule}`}
+                                    href={`/admin/filieres/update-filiere/${filiere.idFiliere}`}
                                 >Modifier</Link>
                             </td>
                             {/* <td>
@@ -56,13 +54,11 @@ export default async function ModulesListe() {
                             href={`#`}>Copir</Link>
                         </td> */}
                             <td>
-                                <DeleteLink content="Supprimer" id={module.idModule} typeEntity="module" />
+                                <DeleteLink content="Supprimer" id={filiere.idFiliere} typeEntity="filiere" />
                             </td>
-                            <td>{module.idModule}</td>
-                            <td>{module.nomModule}</td>
-                            <td>{module.abrModule}</td>
-                            <td>{module.departement}</td>
-                            <td>{module.dure}</td>
+                            <td>{filiere.idFiliere}</td>
+                            <td>{filiere.nomFiliere}</td>
+                            <td>{filiere.abrFiliere}</td>
                         </tr>
                     ))}
                 </tbody>

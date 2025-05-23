@@ -9,19 +9,19 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <html lang="en">
             <body>
 
-                <div className="flex items-center bg-blue-400 py-3 justify-items-center">
+                <div className="flex items-center bg-green-400 py-3 justify-items-center">
                     <nav>
                         <Link className="p-3"
-                            href={`/admin/modules-fac/create-module/`}>
-                            create-module
+                            href={`/admin/lieu/create-lieu/`}>
+                            create-lieu
                         </Link>
                         <Link   className="p-3"
-                            href={`/admin/modules-fac/liste-module/`}>
-                            liste-module
+                            href={`/admin/lieu/liste-lieu/`}>
+                            liste-lieu
                         </Link>
                         <Link className="p-3"
-                            href={`/admin/modules-fac/update-module/20`}>
-                            update-module
+                            href={`/admin/lieu/update-lieu/5`}>
+                            update-lieu
                         </Link>
                     </nav>
                 </div>

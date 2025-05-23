@@ -71,6 +71,8 @@ Feature 4 : <Link href={`#`}>Copir</Link>
 
 Question 3 : error: error ?? null,
 
+Feature 5 : add disabled <td>Nom (Amphi) </td>
+
 
 
 
