@@ -26,7 +26,7 @@ export const sallesJSX : JSX.Element[] = Array.from({ length: 64 }, (_, i) => {
 //     sallesJSX += `<option value="S${i}">Salle ${i}</option>`; // this only a string not a JSX element
 // export  {sallesJSX}; 
 
-export type TypeEntity = 'module' | 'filiere' | 'lieu';
+export type TypeEntity = 'module' | 'filiere' | 'lieu' | 'classe' | 'prof' | 'etudiant'| 'etudiant'|'admin';
 
 export type Classe = {
     idClasse: number

@@ -73,7 +73,15 @@ Question 3 : error: error ?? null,
 
 Feature 5 : add disabled <td>Nom (Amphi) </td>
 
+---------------------- 27/05/25 tuesday -------------------------------
+Fix 1 : Bloc d'une Salle
 
+
+---------------------- 28/05/25 tuesday -------------------------------
+Question 1 :   if ( params.type === 'ETUDIANT') {
+    var [cne, setCne] = useState<string>('');
+    var [classe, setClasse] = useState<string>('');
+  }
 
 
 

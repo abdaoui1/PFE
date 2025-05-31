@@ -1,32 +1,48 @@
 
-import { NextRequest , NextResponse } from "next/server";
-import { createApiResponse , getErrorMessage} from "@/lib/utils";
+import { NextRequest, NextResponse } from "next/server";
+import { createApiResponse, getErrorMessage } from "@/lib/utils";
 import prisma from "@/lib/prisma";
 import { TypeEntity } from "@/lib/types";
 
 export async function DELETE(req: NextRequest) {
     try {
-        const body: {id: number , typeEntity: TypeEntity} = await req.json();
+        const body: { id: number|string, typeEntity: TypeEntity } = await req.json();
 
-        let deletedEntity = null ;
-        
-        if ( body.typeEntity === 'filiere') {
-             deletedEntity = await prisma.filiere.delete({
-                where: { idFiliere:body.id }
-            })
-            
-        } else if ( body.typeEntity === 'module' ) {
-              deletedEntity = await prisma.module.delete({
-                where: { idModule:body.id }
-            })
-            
-        } else if( body.typeEntity === 'lieu') {
-              deletedEntity = await prisma.lieu.delete({
-                where: { idLieu:body.id }
-            })
-            
-        } 
-        
+        let deletedEntity = null;
+
+        switch (body.typeEntity) {
+            case 'filiere':
+                deletedEntity = await prisma.filiere.delete({
+                    where: { idFiliere: body.id as number}
+                })
+                break;
+            case 'module':
+                deletedEntity = await prisma.module.delete({
+                    where: { idModule: body.id as number }
+                })
+                break;
+            case 'lieu':
+                deletedEntity = await prisma.lieu.delete({
+                    where: { idLieu: body.id as number }
+                })
+                break;
+            case 'classe':
+                deletedEntity = await prisma.classe.delete({
+                    where: { idClasse: body.id as number }
+                })
+                break;
+            case 'prof':
+                deletedEntity = await prisma.prof.delete({
+                    where: { idProf: body.id as number }
+                });
+                break;
+            case 'etudiant':
+                deletedEntity = await prisma.etudiant.delete({
+                    where: { cne: body.id as string }
+                })
+                break;
+            default: ;
+        }
 
 
         console.log("Entity  deleted : "); console.log(deletedEntity);
@@ -35,8 +51,8 @@ export async function DELETE(req: NextRequest) {
         return NextResponse.json(response, { status: 200 });
 
     } catch (error) {
-        const response  = createApiResponse( false , `Error while deleting  ` , null , getErrorMessage(error))
-        
-        return NextResponse.json(response , { status: 500 });
+        const response = createApiResponse(false, `Error while deleting  `, null, getErrorMessage(error))
+
+        return NextResponse.json(response, { status: 500 });
     }
 }

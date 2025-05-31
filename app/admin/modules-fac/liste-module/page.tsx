@@ -19,7 +19,7 @@ export default async function ModulesListe() {
     if (body.success && body.data) {
         modules = body.data;
     } else {
-        alert("Error , getting the modules !");
+        console.error("Error , getting the modules !");
         return (
             <h1>error</h1>
         )

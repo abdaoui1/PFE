@@ -1,11 +1,58 @@
 
+
+// let dateExam = null;
+// let report;
+// let calendrierDisponible;
+
+
+// if (report === false) {
+//     dateExam = "13 juin"
+// } else {
+//     if (calendrierDisponible) {
+//         dateExam = "exam dans le calendrier";
+//     } else {
+//         dateExam = "16 juin"
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // haha i have problem with the ts extension.
 
 import prisma from "@/lib/prisma";
+import { Classe, Filiere } from "@prisma/client";
 
 
 
-     
+
 
 
 // const modules = async function getModules() {
@@ -44,34 +91,36 @@ import prisma from "@/lib/prisma";
 //     "Y",
 // ];
 
-// async function main() {
+async function main() {
 
-//     // const filiere = await prisma.filiere.create(
-//     //     {
-//     //         data: {
-//     //             abrFiliere: "SMI/BD",
-//     //             nomFiliere: "Smi developpement et bases de donnees",
-//     //             idFiliere: 100,
-//     //             classes: {
-//     //                 create: [
-//     //                     {
-//     //                         semestre: "S6",
-//     //                         effectif: 40,
-//     //                         idClasse: 200,
+    // const test = await prisma.user.create({
+    //             data: {
+                
+    //                 email: 'hello@hello.com',
+    //                 password: 'easy',
+    //                 prof: {
+    //                     create: {
+                            
+    //                     }
+    //                 }
 
-//     //                     }
-//     //                 ]
+    //             }
 
-//     //             }
-//     //         }
-//     //     }
-//     // )
+    //         })
 
-
-//     const fili = await prisma.module.findMany();
-
-//     console.log(fili);
-// }
+    // const newStudent = await prisma.etudiant.create({
+    //             data: {
+    //                 cne:'F13283727',
+    //                nomEtd: "nom",
+    //                prenomEtd: "prenom",
+    //                sexeEtd: 'HOMME',
+    //                teleEtd: "0633882277",
+    //                 idClasse : 200,
+    //                 user: {},
+    //                 emailEtd: {}
+    //             }
+    //         })
+}
 
 
 
@@ -120,22 +169,13 @@ import prisma from "@/lib/prisma";
 // )
 
 
-
-
-
-
-
-
-// main().then(async () => {
-//     await prisma.$disconnect();
-//     console.log("✅ good");
-// })
-//     .catch(async (error) => {
-//         console.error("abdaoui Error " + error);
-//         await prisma.$disconnect();
-//         process.exit(1)
-//     });
-
-
-
+main().then(async () => {
+    await prisma.$disconnect();
+    console.log("✅ good");
+})
+    .catch(async (error) => {
+        console.error("abdaoui Error " + error);
+        await prisma.$disconnect();
+        process.exit(1)
+    });
 

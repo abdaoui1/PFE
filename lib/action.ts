@@ -1,3 +1,5 @@
+"use server"
+
 import prisma from "./prisma";
 
 
@@ -7,10 +9,12 @@ export async function getUser(email:string) {
           email: email,
         },
         select: {
-          userId: true,
+          // userId: true,
+
           password:true,          
           email: true,
-          image:true,                    
+
+          // image:true,                    
         },
       });
       
