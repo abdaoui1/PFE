@@ -38,7 +38,7 @@ export async function DELETE(req: NextRequest) {
                 break;
             case 'etudiant':
                 deletedEntity = await prisma.etudiant.delete({
-                    where: { cne: body.id as string }
+                    where: { emailEtd: body.id as string }
                 })
                 break;
             default: ;

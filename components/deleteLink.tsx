@@ -6,10 +6,10 @@ import { Classe } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 
-export function DeleteLink(props: { content: string, id: number , typeEntity: TypeEntity }) {
+export function DeleteLink(props: { content: string, id: number|string , typeEntity: TypeEntity }) {
     const router = useRouter();
 
-    async function handleDelete(e: React.MouseEvent, id: number , typeEntity: TypeEntity ) {
+    async function handleDelete(e: React.MouseEvent, id: number|string , typeEntity: TypeEntity ) {
         e.preventDefault();
 
         // to delete

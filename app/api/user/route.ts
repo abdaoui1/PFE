@@ -6,11 +6,11 @@ import prisma from "@/lib/prisma";
 import { Prof, Sexe } from "@prisma/client";
 import { createApiResponse, getErrorMessage } from "@/lib/utils";
 
-type Type_User = 'etudiant' | 'prof' | 'admin' | '';
+type Type_User = 'ETUDIANT' | 'PROF' | 'ADMIN   ' | '';
 
 type dataProf = {
     nom: string, prenom: string, sexe: Sexe, numTele: string,
-    email: string, password: string, typeUser: Type_User
+    email: string, password: string, typeUser: Type_User, oldEmail: string
 };
 
 type dataStudent = dataProf & { cne: string, idClasse: number };
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         console.log("5email=" + email);
         console.log("6password=" + password);
         console.log("7 its a : typeUser = " + typeUser);
-        if (typeUser === 'etudiant') {
+        if (typeUser === 'ETUDIANT') {
             const { cne, idClasse } = body;
             console.log("its a student");
             console.log("7cne=" + cne);
@@ -59,13 +59,13 @@ export async function POST(req: NextRequest) {
             const response = createApiResponse(true, "good ", newStudent, null);
 
             return NextResponse.json(response, { status: 201 });
-        } else if (typeUser === 'prof') {
+        } else if (typeUser === "PROF") {
 
             const newProf = await prisma.user.create({
                 data: {
                     email,
                     password,
-                    typeUser: 'PROF',
+                    typeUser,
                     prof: {
                         create: {
                             nomProf: nom,
@@ -114,42 +114,90 @@ export async function POST(req: NextRequest) {
 // }
 
 
-// export async function PUT(req: NextRequest) { // for update 
+export async function PUT(req: NextRequest) { // for update 
 
-//     try {
-//         const body: Prof = await req.json();
+    try {
+        const body: dataProf & dataStudent = await req.json();
 
-//         const { idFiliere ,idProf, semestre  , section, groupe , effectif } = body;
+        const { nom, prenom, sexe, numTele, email, password, typeUser, oldEmail } = body;
 
-//         console.log("id Filiere "+ idFiliere);
-//         console.log(semestre); 
-//         console.log(section);
-//         console.log(groupe);
-//         console.log(effectif);
 
-//         const newProf = await prisma.prof.update({
-//             data: {
-//                 idFiliere,
-//                 semestre,
-//                 section,
-//                 groupe,
-//                 effectif,
-//             }, where:{
-//                 idProf 
-//             }
-//         })
+        console.log("1nom=" + nom);
+        console.log("2prenom=" + prenom);
+        console.log("3sexe=" + sexe);
+        console.log("4numtele=" + numTele);
+        console.log("5email=" + email);
+        console.log("6password=" + password);
+        console.log("7 its a : typeUser = " + typeUser);
 
-//     console.log("updated succes");
-//     console.log(newProf);
-//     const response = createApiResponse( true , "updated succes", newProf , null)
+        if (typeUser === 'ETUDIANT') {
+            const { cne, idClasse } = body;
+            console.log("its a student");
+            console.log("7 cne=" + cne);
+            console.log("8 idclasse=" + idClasse);
+            const newStudent = await prisma.user.update({
+                where: {
+                    email: oldEmail
+                },
+                data: {
+                    email,
+                    password,
+                    typeUser: 'ETUDIANT',
+                    etudiant: {
+                        update: {
+                            data: {
+                                cne,
+                                nomEtd: nom,
+                                prenomEtd: prenom,
+                                sexeEtd: sexe,
+                                teleEtd: numTele,
+                                idClasse,
+                            }
+                        }
+                    }
+                }
+            })
 
-//     return NextResponse.json( response , {status: 200});
-//     } catch (error) {
+            console.log("updated Student : "); console.log(newStudent);
 
-//         const response = createApiResponse(false , "Error" , null , getErrorMessage(error))
-//         return NextResponse.json( response , {status: 500})
-//     }
-// }
+            const response = createApiResponse(true, "good ", newStudent, null);
+
+            return NextResponse.json(response, { status: 201 });
+        } else if (typeUser === "PROF") {
+            const newProf = await prisma.user.update({
+                where: { email: oldEmail },
+                data: {
+                    email,
+                    password,
+                    typeUser,
+                    prof: {
+                        update: {
+                            data: {
+                                nomProf: nom,
+                                prenomProf: prenom,
+                                sexeProf: sexe,
+                                teleProf: numTele,
+                            }
+                        }
+                    }
+                }
+            })
+
+            console.log("update Prof : "); console.log(newProf);
+
+            const response = createApiResponse(true, "good ", newProf, null);
+
+            return NextResponse.json(response, { status: 201 });
+        } else {
+            const response = createApiResponse(false, "Wrong typeUser ", null,)
+            return NextResponse.json(response, { status: 500 });
+        }
+
+    } catch (error) {
+        const response = createApiResponse(false, "Error creating user ", null, getErrorMessage(error))
+        return NextResponse.json(response, { status: 500 });
+    }
+}
 
 export async function GET() {
 

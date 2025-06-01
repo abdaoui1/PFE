@@ -48,7 +48,7 @@
 // haha i have problem with the ts extension.
 
 import prisma from "@/lib/prisma";
-import { Classe, Filiere } from "@prisma/client";
+import { Classe, Filiere , Etudiant } from "@prisma/client";
 
 
 
@@ -93,33 +93,21 @@ import { Classe, Filiere } from "@prisma/client";
 
 async function main() {
 
-    // const test = await prisma.user.create({
-    //             data: {
-                
-    //                 email: 'hello@hello.com',
-    //                 password: 'easy',
-    //                 prof: {
-    //                     create: {
-                            
-    //                     }
-    //                 }
+    // const Etudiant: (Etudiant & {classe : Classe}) | null;
+  const etudiant = await prisma.etudiant.findUnique({
+        where: { emailEtd:'dfaffa@gmil.com'  },
+        include: {
+            classe:{
+            select:{
+                idClasse:true,
+                semestre: true
+            }
+            }
 
-    //             }
+        }
+    })
 
-    //         })
-
-    // const newStudent = await prisma.etudiant.create({
-    //             data: {
-    //                 cne:'F13283727',
-    //                nomEtd: "nom",
-    //                prenomEtd: "prenom",
-    //                sexeEtd: 'HOMME',
-    //                teleEtd: "0633882277",
-    //                 idClasse : 200,
-    //                 user: {},
-    //                 emailEtd: {}
-    //             }
-    //         })
+    console.log('etudiant?.classe.semestre= '+etudiant?.classe.semestre);
 }
 
 

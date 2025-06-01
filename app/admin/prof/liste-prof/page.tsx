@@ -9,23 +9,23 @@ import { Prof } from "@prisma/client";
 
 
 export default async function ProfsListe() {
-    
-    let profs : Prof[] =[];
 
-       try {
-             profs = await prisma.prof.findMany();
-    
-            console.log("read all prof : good ");
-    
-    
-        } catch (error) {
-            console.error("Error getting profs : " + error);
-            
-        } finally {
-            await prisma.$disconnect();
-        }
+    let profs: Prof[] = [];
 
-   
+    try {
+        profs = await prisma.prof.findMany();
+
+        console.log("read all prof : good ");
+
+
+    } catch (error) {
+        console.error("Error getting profs : " + error);
+
+    } finally {
+        await prisma.$disconnect();
+    }
+
+
     return (
 
         <div>
@@ -47,7 +47,7 @@ export default async function ProfsListe() {
                             <td><input type="checkbox" name="select" id="select" /></td>
                             <td>
                                 <Link
-                                    href={`/admin/prof/update-prof/${prof.idProf}`}
+                                    href={`/admin/prof/update-user/${prof.idProf}`}
                                 >Modifier</Link>
                             </td>
                             {/* <td>

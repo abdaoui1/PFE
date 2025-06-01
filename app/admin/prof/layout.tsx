@@ -12,16 +12,16 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
                 <div className="flex items-center bg-blue-400 py-3 justify-items-center">
                     <nav>
                         <Link className="p-3"
-                            href={`/admin/user/create-user/`}>
-                            create-user
+                            href={`/admin/prof/create-prof/`}>
+                            create-prof
                         </Link>
                         <Link className="p-3"
-                            href={`/admin/user/liste-prof/`}>
+                            href={`/admin/prof/liste-prof/`}>
                             liste-prof
                         </Link>
                         <Link className="p-3"
-                            href={`/admin/user/update-user/5`}>
-                            update-user
+                            href={`/admin/prof/update-prof/5`}>
+                            update-prof
                         </Link>
                     </nav>
                 </div>

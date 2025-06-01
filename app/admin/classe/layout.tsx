@@ -9,8 +9,8 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <html lang="en">
             <body>
 
-                <div className="flex items-center bg-blue-400 py-3 justify-items-center">
-                    <nav>
+                <nav>
+                    <div className="flex items-center bg-blue-400 py-3 justify-items-center">
                         <Link className="p-3"
                             href={`/admin/classe/create-classe/`}>
                             create-classe
@@ -23,9 +23,11 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
                             href={`/admin/classe/update-classe/5`}>
                             update-classe
                         </Link>
-                    </nav>
-                </div>
-                {children}
+                    </div>
+                </nav>
+                <main>
+                    {children}
+                </main>
             </body>
         </html>
     )
