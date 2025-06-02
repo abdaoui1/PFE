@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import '@/app/globals.css'
-import MainNav from '@/components/main-nav'
-import { AdmniSideBar } from '@/components/admin_sidebar'
-import Sidebar from '@/components/charSidebar'
+import AdminSideBar from '@/components/adminSideBar'
+import ResponsiveSidebar from '@/components/responsiveSideBar'
 
 export const metadata: Metadata = {
     title: 'v0 App',
@@ -15,15 +14,20 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+
+    
     return (
         <html lang="en">
             <body>
                 <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                     {/* <MainNav /> */}
                 </header>
-                {/* < AdmniSideBar /> */}
-                {/* < Sidebar /> */}
-                {children}</body>
+                {/* <AdminSideBar> */}
+                <ResponsiveSidebar/>
+                        {children}
+                {/* </AdminSideBar> */}
+                      
+            </body>
         </html>
     )
 }
