@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger , SheetTitle } from "@/components/ui/sheet"
 import { Calendar, Clock, HelpCircle, Home, Layers, Menu, User } from "lucide-react";
 import Link from "next/link";
 import { MenuItem } from "./main-nav";
@@ -22,6 +22,7 @@ export default function SideBar({ menuItems }: { menuItems: MenuItem[] }) {
             </Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-[240px] sm:w-[300px]">
+            <SheetTitle className="sr-only">hello</SheetTitle>
             <div className="flex flex-col gap-6 py-6">
                 {menuItems.map((item) => {
                     const Icon = iconMap[item.icon as keyof typeof iconMap] || HelpCircle;

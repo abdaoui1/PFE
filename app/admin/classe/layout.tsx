@@ -6,8 +6,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
 
 
     return (
-        <html lang="en">
-            <body>
+            <div>
 
                 <nav>
                     <div className="flex items-center bg-blue-400 py-3 justify-items-center">
@@ -28,7 +27,6 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
                 <main>
                     {children}
                 </main>
-            </body>
-        </html>
+            </div>
     )
 }

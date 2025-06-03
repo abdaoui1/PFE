@@ -83,10 +83,11 @@ Question 1 :   if ( params.type === 'ETUDIANT') {
     var [classe, setClasse] = useState<string>('');
   }
 
----------------------- 01/06/25 tuesday -------------------------------
+---------------------- 01/06/25 sunday -------------------------------
 Feature 1 : order by a column ( tables crud operations)
 
-
+---------------------- 03/06/25 tuesday -------------------------------
+Feature 1 : collabsible sidebar
 
 
 
