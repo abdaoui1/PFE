@@ -4,6 +4,7 @@ import HeroCarousel from "@/components/hero-carousel"
 import Footer from "@/components/footer"
 import { ConsulterEmploisCard } from "@/components/Cards/ConsulterEmplois"
 import Link from "next/link"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function HomePage() {
   return (

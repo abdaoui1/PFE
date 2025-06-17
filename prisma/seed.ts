@@ -48,7 +48,7 @@
 // haha i have problem with the ts extension.
 
 import prisma from "@/lib/prisma";
-import { Classe, Filiere, Etudiant, Day, NumeroSeance, Seance } from "@prisma/client";
+import { Classe, Filiere, Etudiant, Day, NumeroSeance, Seance, TypeLieu, Groupe } from "@prisma/client";
 
 
 
@@ -93,9 +93,71 @@ import { Classe, Filiere, Etudiant, Day, NumeroSeance, Seance } from "@prisma/cl
 
 async function main() {
 
-    console.log("typeof 'hello' = ",typeof []);
-    console.log("typeof 'hello' = ",typeof {});
-    // console.log("typeof 'hello' = ",typeof hello);
+    const seance: (Seance & {
+  module: {
+    abrModule: string;
+    nomModule: string;
+  };
+  lieu: {
+    nomLieu: string | null;
+    typeLieu: TypeLieu | null;
+    numeroSalle: number | null;
+  };
+  prof: {
+    nomProf: string;
+    prenomProf: string;
+  };
+  classe: {
+    groupe: Groupe | null;
+  };
+})[] = await prisma.seance.findMany({
+  where: { idClasse: 200 },
+  include: {
+    module: {
+      select: {
+        abrModule: true,
+        nomModule: true,
+      },
+    },
+    lieu: {
+      select: {
+        typeLieu: true,
+        nomLieu: true,
+        numeroSalle: true,
+      },
+    },
+    prof: {
+      select: {
+        nomProf: true,
+        prenomProf: true,
+      },
+    },
+    classe: {
+      select: {
+        groupe: true,
+      },
+    },
+  },
+});
+
+
+    )
+    const seances: Seance[] = await prisma.seance.findMany({ where: { idClasse: 200 } })
+    //  console.log(seances[0].);
+
+    const s = seance[3];
+
+    console.log({
+        groupe: s.classe.groupe,
+        nomProf: s.prof.nomProf,
+        prenomProf: s.prof.prenomProf,
+        typeLieu: s.lieu.typeLieu,
+        numeroSalle: s.lieu.numeroSalle,
+        nomModule: s.module.nomModule,
+    });
+
+
+
 }
 
 

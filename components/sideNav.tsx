@@ -96,10 +96,10 @@ export default function SideNav() {
             })}
           </div>
         </aside>
-        <div className="mt-[calc(calc(90vh)-40px)] relative">
+        <div className="relative">
           <button
             type="button"
-            className="absolute bottom-32 right-[-12px] flex h-6 w-6 items-center justify-center border border-muted-foreground/20 rounded-full bg-accent shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
+            className="absolute top-4 right-[-12px] flex h-6 w-6 items-center justify-center border border-muted-foreground/20 rounded-full bg-accent shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
             onClick={toggleSidebar}
           >
             {isCollapsed ? (

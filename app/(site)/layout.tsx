@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '@/app/globals.css'
 import MainNav from '@/components/main-nav'
+import ContextProvider from '../providers'
 
 export const metadata: Metadata = {
   title: 'v0 App',
@@ -14,12 +15,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className='' suppressHydrationWarning>
       <body>
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <MainNav />
-        </header>
-        {children}</body>
+        <ContextProvider>
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <MainNav />
+          </header>
+          {children}
+        </ContextProvider>
+      </body>
     </html>
   )
 }

@@ -9,7 +9,7 @@ const config = {
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
-  
+
   prefix: "",
   theme: {
     container: {
@@ -21,15 +21,15 @@ const config = {
     },
     extend: {
       colors: {
-        primary:'#005B96',
-        onPrimary:'#b3cde0',
-        secondary:"#6497B1",
-        onSecondary:"#011f4b",
+        primary: '#005B96',
+        onPrimary: '#b3cde0',
+        secondary: "#6497B1",
+        onSecondary: "#011f4b",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",      
+        foreground: "hsl(var(--foreground))",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -72,9 +72,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate") ,
-        require("daisyui") 
+  plugins: [require("tailwindcss-animate"),
+  require("daisyui")
   ],
+   daisyui: { themes: ['coffee', 'dark', 'coffee', 'winter'] },
 } satisfies Config
 
 export default config

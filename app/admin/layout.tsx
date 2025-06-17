@@ -17,8 +17,9 @@ export default function RootLayout({
 
 
     return (
-        <html lang="en">
+        <html lang="en"  className="" suppressHydrationWarning>
             <body>
+                 <ContextProvider>
                 <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                     {/* {/* <MainNav /> } */}
                 </header>
@@ -28,14 +29,14 @@ export default function RootLayout({
                         <div className="h-screen sm:h-[calc(100vh-60px)] overflow-y-auto">
                             <div className="w-full flex justify-center h-full">
                                 <div className="w-full md:max-w-6xl px-4">
-                                    <ContextProvider>
+                                   
                                         {children}
-                                        </ContextProvider> 
                                     </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </ContextProvider>
                 {/* <AdminSideBar>
                     <div className="w-full overflow-x-auto">
                         <div className="sm:h-[calc(99vh-60px)] overflow-auto ">

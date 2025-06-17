@@ -90,6 +90,10 @@ Feature 1 : order by a column ( tables crud operations)
 Feature 1 : collabsible sidebar
 
 
+---------------------- 15/06/25 sunday -------------------------------
+Problem 1 : Close dropdown : it show in the (0,0) position
+
+Problem 2 : change the cursor : emplois page .
 
 
 

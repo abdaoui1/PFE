@@ -3,6 +3,7 @@ import Image from "next/image"
 import Profile from "./profile"
 import Logout from "./logout"
 import Sidebar from "@/components/side-bar"
+import {ThemeToggle} from "@/components/theme-toggle"
 
 export type MenuItem = {
   name: string;
@@ -43,6 +44,7 @@ export default function MainNav() {
 
       <div className="flex items-center gap-4">
         {/* <Logout /> */}
+        <ThemeToggle isDropDown={true}/>
         <Profile />
         <Sidebar menuItems={menuItems} />
       </div>
